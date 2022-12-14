@@ -82,6 +82,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82CBE647294A1B5800F877CE /* App */ = {
+			isa = PBXGroup;
+			children = (
+				82CBE64E294A1BED00F877CE /* Assets */,
+				82EBE883294050220080313F /* Info.plist */,
+				82EBE875294050200080313F /* AppDelegate.swift */,
+				82EBE877294050200080313F /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		82CBE648294A1B5C00F877CE /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		82CBE649294A1B6100F877CE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		82CBE64A294A1B6800F877CE /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		82CBE64B294A1B6F00F877CE /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		82CBE64C294A1B7400F877CE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				82EBE879294050200080313F /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		82CBE64D294A1B7800F877CE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		82CBE64E294A1BED00F877CE /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				82EBE880294050220080313F /* LaunchScreen.storyboard */,
+				82EBE87E294050220080313F /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		82EBE869294050200080313F = {
 			isa = PBXGroup;
 			children = (
@@ -105,12 +168,13 @@
 		82EBE874294050200080313F /* CheckList */ = {
 			isa = PBXGroup;
 			children = (
-				82EBE875294050200080313F /* AppDelegate.swift */,
-				82EBE877294050200080313F /* SceneDelegate.swift */,
-				82EBE879294050200080313F /* ViewController.swift */,
-				82EBE87E294050220080313F /* Assets.xcassets */,
-				82EBE880294050220080313F /* LaunchScreen.storyboard */,
-				82EBE883294050220080313F /* Info.plist */,
+				82CBE647294A1B5800F877CE /* App */,
+				82CBE648294A1B5C00F877CE /* Domain */,
+				82CBE649294A1B6100F877CE /* Model */,
+				82CBE64A294A1B6800F877CE /* Repository */,
+				82CBE64B294A1B6F00F877CE /* Utils */,
+				82CBE64C294A1B7400F877CE /* View */,
+				82CBE64D294A1B7800F877CE /* ViewModel */,
 			);
 			path = CheckList;
 			sourceTree = "<group>";
