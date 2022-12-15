@@ -32,13 +32,11 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
-        testButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.viewModel.changeTitle()
-            })
-            .disposed(by: disposeBag)
+        let input = MainViewModel.Input(tapTestButton: testButton.rx.tap.asObservable())
         
-        viewModel.title
+        let output = viewModel.transform(input: input)
+        
+        output.testTitle
             .bind(to: timeView.testLabel.rx.text)
             .disposed(by: disposeBag)
     }
@@ -48,7 +46,13 @@ class MainViewController: UIViewController {
     }
     
     // MARK: - View
-    private let timeView = TimeView()
+    private let timeView: TimeView = {
+        let view = TimeView()
+        view.backgroundColor = .red
+        
+        return view
+    }()
+    
     private let testButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("Test", for: .normal)
@@ -60,7 +64,6 @@ class MainViewController: UIViewController {
     // MARK: - Layout
     private func setupLayout() {
         view.addSubview(timeView)
-        timeView.backgroundColor = .red
         timeView.snp.makeConstraints { make in
             make.top.equalTo(50)
             make.leading.equalTo(12)
