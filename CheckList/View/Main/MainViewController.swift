@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import RxGesture
+import RxViewController
 
 class MainViewController: UIViewController {
     let viewModel: MainViewModel
@@ -32,13 +34,17 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
-        let input = MainViewModel.Input(tapTestButton: testButton.rx.tap.asObservable())
+        let input = MainViewModel.Input(
+            tapTimeView: timeView.rx.tapGesture().when(.recognized).map { _ in () }
+        )
         
         let output = viewModel.transform(input: input)
         
-        output.testTitle
-            .bind(to: timeView.testLabel.rx.text)
-            .disposed(by: disposeBag)
+        // 시간 설정 화면 띄우기
+        output.showSetTimeView
+            .subscribe(onNext: { [weak self] in
+                self?.present(EditDateViewController(), animated: true)
+            }).disposed(by: disposeBag)
     }
     
     private func presentSetTime() {
@@ -48,17 +54,10 @@ class MainViewController: UIViewController {
     // MARK: - View
     private let timeView: TimeView = {
         let view = TimeView()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        view.setRadiusAndShadow()
         
         return view
-    }()
-    
-    private let testButton: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Test", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
-        
-        return btn
     }()
     
     // MARK: - Layout
@@ -69,11 +68,6 @@ class MainViewController: UIViewController {
             make.leading.equalTo(12)
             make.trailing.equalTo(-12)
             make.height.equalTo(80)
-        }
-        
-        view.addSubview(testButton)
-        testButton.snp.makeConstraints { make in
-            make.center.equalToSuperview()
         }
     }
 }

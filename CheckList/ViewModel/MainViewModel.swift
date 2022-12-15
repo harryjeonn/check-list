@@ -13,17 +13,16 @@ class MainViewModel: ViewModel {
     var disposeBag: DisposeBag = DisposeBag()
     
     struct Input {
-        let tapTestButton: Observable<Void>
+        let tapTimeView: Observable<Void>
     }
     
     struct Output {
-        let testTitle: Observable<String>
+        let showSetTimeView: Observable<Void>
     }
     
     func transform(input: Input) -> Output {
-        let testTitle = input.tapTestButton
-            .map { "\(Int.random(in: 0...10))" }
+        let tapTimeView = input.tapTimeView.asObservable()
         
-        return Output(testTitle: testTitle)
+        return Output(showSetTimeView: tapTimeView)
     }
 }

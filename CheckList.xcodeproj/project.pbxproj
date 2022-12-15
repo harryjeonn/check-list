@@ -13,6 +13,8 @@
 		82591F38294B4C7100D3E6D3 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 82591F37294B4C7100D3E6D3 /* RxSwift */; };
 		82591F3B294B4CBC00D3E6D3 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 82591F3A294B4CBC00D3E6D3 /* RxGesture */; };
 		82591F3E294B4CCA00D3E6D3 /* RxViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 82591F3D294B4CCA00D3E6D3 /* RxViewController */; };
+		82591F40294B51BC00D3E6D3 /* EditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82591F3F294B51BC00D3E6D3 /* EditDateViewController.swift */; };
+		82591F42294B540F00D3E6D3 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82591F41294B540F00D3E6D3 /* UIView+Extension.swift */; };
 		82A6256E2940591F009F461E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 82A6256D2940591F009F461E /* SnapKit */; };
 		82CBE651294A1E1600F877CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CBE650294A1E1600F877CE /* MainViewModel.swift */; };
 		82CBE653294A1F3B00F877CE /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CBE652294A1F3B00F877CE /* TimeView.swift */; };
@@ -45,6 +47,8 @@
 
 /* Begin PBXFileReference section */
 		82591F30294AF90000D3E6D3 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		82591F3F294B51BC00D3E6D3 /* EditDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDateViewController.swift; sourceTree = "<group>"; };
+		82591F41294B540F00D3E6D3 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		82CBE650294A1E1600F877CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		82CBE652294A1F3B00F877CE /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		82EBE872294050200080313F /* CheckList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +131,7 @@
 		82CBE64B294A1B6F00F877CE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				82591F41294B540F00D3E6D3 /* UIView+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -162,6 +167,7 @@
 			children = (
 				82EBE879294050200080313F /* MainViewController.swift */,
 				82CBE652294A1F3B00F877CE /* TimeView.swift */,
+				82591F3F294B51BC00D3E6D3 /* EditDateViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -361,7 +367,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82591F40294B51BC00D3E6D3 /* EditDateViewController.swift in Sources */,
 				82EBE87A294050200080313F /* MainViewController.swift in Sources */,
+				82591F42294B540F00D3E6D3 /* UIView+Extension.swift in Sources */,
 				82EBE876294050200080313F /* AppDelegate.swift in Sources */,
 				82CBE653294A1F3B00F877CE /* TimeView.swift in Sources */,
 				82EBE878294050200080313F /* SceneDelegate.swift in Sources */,
