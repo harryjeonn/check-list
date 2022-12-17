@@ -43,12 +43,13 @@ class MainViewController: UIViewController {
         // 시간 설정 화면 띄우기
         output.showSetTimeView
             .subscribe(onNext: { [weak self] in
-                self?.present(EditDateViewController(), animated: true)
+                self?.presentEditDateViewController()
             }).disposed(by: disposeBag)
     }
     
-    private func presentSetTime() {
-        
+    private func presentEditDateViewController() {
+        let vc = EditDateViewController(viewModel: EditDateViewModel())
+        self.present(vc, animated: true)
     }
     
     // MARK: - View
