@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  CheckListViewController.swift
 //  CheckList
 //
 //  Created by 전현성 on 2022/12/07.
@@ -12,17 +12,17 @@ import RxCocoa
 import RxGesture
 import RxViewController
 
-class MainViewController: UIViewController {
-    let viewModel: MainViewModel
+class CheckListViewController: UIViewController {
+    let viewModel: CheckListViewModel
     var disposeBag = DisposeBag()
     
-    init(viewModel: MainViewModel) {
+    init(viewModel: CheckListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        viewModel = MainViewModel()
+        viewModel = CheckListViewModel()
         super.init(coder: aDecoder)
     }
     
@@ -34,7 +34,7 @@ class MainViewController: UIViewController {
     }
     
     private func bind() {
-        let input = MainViewModel.Input(
+        let input = CheckListViewModel.Input(
             tapTimeView: timeView.rx.tapGesture().when(.recognized).map { _ in () }
         )
         

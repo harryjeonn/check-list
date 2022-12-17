@@ -1,5 +1,5 @@
 //
-//  MainViewModel.swift
+//  CheckListViewModel.swift
 //  CheckList
 //
 //  Created by 전현성 on 2022/12/15.
@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class MainViewModel: ViewModel {
+class CheckListViewModel: ViewModel {
     var disposeBag: DisposeBag = DisposeBag()
     
     struct Input {
