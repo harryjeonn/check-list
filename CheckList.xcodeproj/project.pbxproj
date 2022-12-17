@@ -19,6 +19,9 @@
 		82591F46294DA1AC00D3E6D3 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82591F45294DA1AC00D3E6D3 /* TopBarView.swift */; };
 		82591F48294DBB2E00D3E6D3 /* DayPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82591F47294DBB2E00D3E6D3 /* DayPickerTableViewCell.swift */; };
 		82591F4A294DBD3D00D3E6D3 /* Day.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82591F49294DBD3D00D3E6D3 /* Day.swift */; };
+		82591F4C294DF51A00D3E6D3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 82591F4B294DF51A00D3E6D3 /* GoogleService-Info.plist */; };
+		82591F4F294DF5AA00D3E6D3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 82591F4E294DF5AA00D3E6D3 /* FirebaseAnalytics */; };
+		82591F51294DF5AA00D3E6D3 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 82591F50294DF5AA00D3E6D3 /* FirebaseFirestore */; };
 		82A6256E2940591F009F461E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 82A6256D2940591F009F461E /* SnapKit */; };
 		82CBE651294A1E1600F877CE /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CBE650294A1E1600F877CE /* MainViewModel.swift */; };
 		82CBE653294A1F3B00F877CE /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CBE652294A1F3B00F877CE /* TimeView.swift */; };
@@ -57,6 +60,7 @@
 		82591F45294DA1AC00D3E6D3 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
 		82591F47294DBB2E00D3E6D3 /* DayPickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayPickerTableViewCell.swift; sourceTree = "<group>"; };
 		82591F49294DBD3D00D3E6D3 /* Day.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Day.swift; sourceTree = "<group>"; };
+		82591F4B294DF51A00D3E6D3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		82CBE650294A1E1600F877CE /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		82CBE652294A1F3B00F877CE /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
 		82EBE872294050200080313F /* CheckList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckList.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,10 +82,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82591F4F294DF5AA00D3E6D3 /* FirebaseAnalytics in Frameworks */,
 				82591F36294B4C7100D3E6D3 /* RxRelay in Frameworks */,
 				82591F34294B4C7100D3E6D3 /* RxCocoa in Frameworks */,
 				82591F3B294B4CBC00D3E6D3 /* RxGesture in Frameworks */,
 				82591F3E294B4CCA00D3E6D3 /* RxViewController in Frameworks */,
+				82591F51294DF5AA00D3E6D3 /* FirebaseFirestore in Frameworks */,
 				82591F38294B4C7100D3E6D3 /* RxSwift in Frameworks */,
 				82A6256E2940591F009F461E /* SnapKit in Frameworks */,
 			);
@@ -111,6 +117,7 @@
 				82EBE883294050220080313F /* Info.plist */,
 				82EBE875294050200080313F /* AppDelegate.swift */,
 				82EBE877294050200080313F /* SceneDelegate.swift */,
+				82591F4B294DF51A00D3E6D3 /* GoogleService-Info.plist */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -258,6 +265,8 @@
 				82591F37294B4C7100D3E6D3 /* RxSwift */,
 				82591F3A294B4CBC00D3E6D3 /* RxGesture */,
 				82591F3D294B4CCA00D3E6D3 /* RxViewController */,
+				82591F4E294DF5AA00D3E6D3 /* FirebaseAnalytics */,
+				82591F50294DF5AA00D3E6D3 /* FirebaseFirestore */,
 			);
 			productName = CheckList;
 			productReference = 82EBE872294050200080313F /* CheckList.app */;
@@ -336,6 +345,7 @@
 				82591F32294B4C7100D3E6D3 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				82591F39294B4CBC00D3E6D3 /* XCRemoteSwiftPackageReference "RxGesture" */,
 				82591F3C294B4CCA00D3E6D3 /* XCRemoteSwiftPackageReference "RxViewController" */,
+				82591F4D294DF5AA00D3E6D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 82EBE873294050200080313F /* Products */;
 			projectDirPath = "";
@@ -355,6 +365,7 @@
 			files = (
 				82EBE882294050220080313F /* LaunchScreen.storyboard in Resources */,
 				82EBE87F294050220080313F /* Assets.xcassets in Resources */,
+				82591F4C294DF51A00D3E6D3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +773,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		82591F4D294DF5AA00D3E6D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 		82A6256C2940591F009F461E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -797,6 +816,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 82591F3C294B4CCA00D3E6D3 /* XCRemoteSwiftPackageReference "RxViewController" */;
 			productName = RxViewController;
+		};
+		82591F4E294DF5AA00D3E6D3 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82591F4D294DF5AA00D3E6D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		82591F50294DF5AA00D3E6D3 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 82591F4D294DF5AA00D3E6D3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 		82A6256D2940591F009F461E /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

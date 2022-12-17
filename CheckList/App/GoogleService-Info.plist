@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>527774339850-snd2rdqvse8ebv043tu8nqhvltjbpufd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.527774339850-snd2rdqvse8ebv043tu8nqhvltjbpufd</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCLggb_10nztQT4l8IIQvlCgQKfuyZ5hvM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>527774339850</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.harry.CheckList</string>
+	<key>PROJECT_ID</key>
+	<string>checklist-deef8</string>
+	<key>STORAGE_BUCKET</key>
+	<string>checklist-deef8.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:527774339850:ios:281150d13dd7dc118ea0f3</string>
+</dict>
+</plist>
