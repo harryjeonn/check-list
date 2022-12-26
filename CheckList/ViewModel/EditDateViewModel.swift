@@ -29,28 +29,23 @@ class EditDateViewModel: ViewModel {
     }
     
     struct Output {
-        let save: Observable<Bool>
+        let selectedDate: Observable<Alarm>
     }
     
     func transform(input: Input) -> Output {
-        let tapSaveButton = input.tapSaveButton.map { _ in
-            // TODO: - 저장되면 return true
-            return false
-        }
-        
-        input.changeDate
-            .map { date in
-                let dateFomatter = DateFormatter()
-                dateFomatter.timeZone = .autoupdatingCurrent
-                dateFomatter.locale = Locale(identifier: "ko_KR")
-                dateFomatter.dateFormat = "HH:mm:ss"
+        let selectedDate = Observable
+            .combineLatest(input.tapSaveButton, input.changeDate, input.changeDay)
+            .map { [weak self] (_, date, day) -> Alarm in
+                guard let self = self else { return Alarm(time: "", day: []) }
+                let selectedTime = self.convertDateToString(date)
+                let seletedDay = self.tableViewItems.value
+                    .filter { $0.isSelected }
+                    .map { $0.title }
                 
-                return dateFomatter.string(from: date)
+                let selectedDate = Alarm(time: selectedTime, day: seletedDay)
+                
+                return selectedDate
             }
-            .subscribe(onNext: { date in
-                print(date)
-            })
-            .disposed(by: disposeBag)
         
         input.changeDay
             .subscribe(onNext: { [weak self] index in
@@ -61,6 +56,15 @@ class EditDateViewModel: ViewModel {
             .disposed(by: disposeBag)
             
         
-        return Output(save: tapSaveButton)
+        return Output(selectedDate: selectedDate)
+    }
+    
+    func convertDateToString(_ date: Date) -> String {
+        let dateFomatter = DateFormatter()
+        dateFomatter.timeZone = .autoupdatingCurrent
+        dateFomatter.locale = Locale(identifier: "ko_KR")
+        dateFomatter.dateFormat = "HH:mm"
+        
+        return dateFomatter.string(from: date)
     }
 }

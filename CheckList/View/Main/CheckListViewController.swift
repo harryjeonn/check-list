@@ -64,6 +64,11 @@ class CheckListViewController: UIViewController {
     
     private func presentEditDateViewController() {
         let vc = EditDateViewController(viewModel: EditDateViewModel())
+        vc.seletedDate.subscribe(onNext: { [weak self] alarm in
+            self?.timeView.timeText.text = alarm.time
+            self?.timeView.dayText.text = alarm.day.joined(separator: ", ")
+        })
+        .disposed(by: disposeBag)
         self.present(vc, animated: true)
     }
     

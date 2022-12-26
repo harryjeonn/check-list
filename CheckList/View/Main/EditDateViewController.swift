@@ -13,6 +13,8 @@ class EditDateViewController: UIViewController {
     let viewModel: EditDateViewModel
     var disposeBag = DisposeBag()
     
+    let seletedDate = PublishSubject<Alarm>()
+    
     init(viewModel: EditDateViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -27,6 +29,7 @@ class EditDateViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setupLayout()
+        configureTableView()
         bind()
     }
     
@@ -39,8 +42,8 @@ class EditDateViewController: UIViewController {
         
         let output = viewModel.transform(input: input)
         
-        output.save
-            .filter { $0 == true }
+        output.selectedDate
+            .do(onNext: seletedDate.onNext)
             .subscribe(onNext: { [weak self] _ in
                 self?.dismiss(animated: true)
             })
@@ -54,43 +57,12 @@ class EditDateViewController: UIViewController {
         
         viewModel.tableViewItems
             .bind(to: tableView.rx.items(cellIdentifier: DayPickerTableViewCell.identifier, cellType: DayPickerTableViewCell.self)) { index, item, cell in
-                cell.selectionStyle = .none
-                cell.titleLabel.text = item.title
-                cell.checkImage.isHidden = !item.isSelected
+                cell.configureCell(item)
             }
-            .disposed(by: disposeBag)
-        
-        // Test용
-        tableView.rx.modelSelected(Day.self)
-            .subscribe(onNext: { day in
-                print(day)
-            })
             .disposed(by: disposeBag)
     }
     
-    private func setupLayout() {
-        self.view.addSubview(topBarView)
-        topBarView.snp.makeConstraints { make in
-            make.trailing.leading.equalTo(0)
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.height.equalTo(50)
-        }
-        
-        self.view.addSubview(datePicker)
-        datePicker.snp.makeConstraints { make in
-            make.top.equalTo(topBarView.snp.bottom).offset(28)
-            make.leading.equalTo(12)
-            make.trailing.equalTo(-12)
-            make.height.equalTo(150)
-        }
-        
-        self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(datePicker.snp.bottom).offset(28)
-            make.leading.equalTo(12)
-            make.trailing.equalTo(-12)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-28)
-        }
+    func configureTableView() {
         tableView.register(DayPickerTableViewCell.self, forCellReuseIdentifier: DayPickerTableViewCell.identifier)
     }
     
@@ -120,4 +92,30 @@ class EditDateViewController: UIViewController {
         
         return view
     }()
+    
+    // MARK: - Layout
+    private func setupLayout() {
+        self.view.addSubview(topBarView)
+        topBarView.snp.makeConstraints { make in
+            make.trailing.leading.equalTo(0)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.height.equalTo(50)
+        }
+        
+        self.view.addSubview(datePicker)
+        datePicker.snp.makeConstraints { make in
+            make.top.equalTo(topBarView.snp.bottom).offset(28)
+            make.leading.equalTo(12)
+            make.trailing.equalTo(-12)
+            make.height.equalTo(150)
+        }
+        
+        self.view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(datePicker.snp.bottom).offset(28)
+            make.leading.equalTo(12)
+            make.trailing.equalTo(-12)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-28)
+        }
+    }
 }

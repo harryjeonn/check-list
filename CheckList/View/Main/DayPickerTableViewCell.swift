@@ -13,6 +13,7 @@ class DayPickerTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.selectionStyle = .none
         setupLayout()
     }
     
@@ -20,19 +21,9 @@ class DayPickerTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayout() {
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(12)
-        }
-        
-        contentView.addSubview(checkImage)
-        checkImage.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(-12)
-            make.width.height.equalTo(24)
-        }
+    func configureCell(_ item: Day) {
+        self.titleLabel.text = item.title
+        self.checkImage.isHidden = !item.isSelected
     }
     
     // MARK: - View
@@ -49,4 +40,20 @@ class DayPickerTableViewCell: UITableViewCell {
         
         return img
     }()
+    
+    // MARK: - Layout
+    private func setupLayout() {
+        contentView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(12)
+        }
+        
+        contentView.addSubview(checkImage)
+        checkImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-12)
+            make.width.height.equalTo(24)
+        }
+    }
 }
