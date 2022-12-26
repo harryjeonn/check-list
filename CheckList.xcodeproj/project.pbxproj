@@ -118,6 +118,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82684C5D295A0655009DB842 /* CheckList */ = {
+			isa = PBXGroup;
+			children = (
+				82EBE879294050200080313F /* CheckListViewController.swift */,
+				82591F52294DFE1800D3E6D3 /* CheckListTableViewCell.swift */,
+				8245A53D294F3CD1008CF0E8 /* InputCheckListViewController.swift */,
+				82CBE652294A1F3B00F877CE /* TimeView.swift */,
+			);
+			path = CheckList;
+			sourceTree = "<group>";
+		};
+		82684C5E295A0659009DB842 /* EditDate */ = {
+			isa = PBXGroup;
+			children = (
+				82591F3F294B51BC00D3E6D3 /* EditDateViewController.swift */,
+				82591F47294DBB2E00D3E6D3 /* DayPickerTableViewCell.swift */,
+			);
+			path = EditDate;
+			sourceTree = "<group>";
+		};
 		82CBE647294A1B5800F877CE /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,11 +150,11 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		82CBE648294A1B5C00F877CE /* Domain */ = {
+		82CBE648294A1B5C00F877CE /* Service */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Domain;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		82CBE649294A1B6100F877CE /* Model */ = {
@@ -164,9 +184,10 @@
 		82CBE64C294A1B7400F877CE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				82CBE64F294A1CED00F877CE /* Main */,
 				82591F45294DA1AC00D3E6D3 /* TopBarView.swift */,
-				8245A53D294F3CD1008CF0E8 /* InputCheckListViewController.swift */,
+				82CBE64F294A1CED00F877CE /* Home */,
+				82684C5D295A0655009DB842 /* CheckList */,
+				82684C5E295A0659009DB842 /* EditDate */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -190,17 +211,12 @@
 			path = Assets;
 			sourceTree = "<group>";
 		};
-		82CBE64F294A1CED00F877CE /* Main */ = {
+		82CBE64F294A1CED00F877CE /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				82591F54294E082C00D3E6D3 /* HomeViewController.swift */,
-				82EBE879294050200080313F /* CheckListViewController.swift */,
-				82591F3F294B51BC00D3E6D3 /* EditDateViewController.swift */,
-				82CBE652294A1F3B00F877CE /* TimeView.swift */,
-				82591F52294DFE1800D3E6D3 /* CheckListTableViewCell.swift */,
-				82591F47294DBB2E00D3E6D3 /* DayPickerTableViewCell.swift */,
 			);
-			path = Main;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		82EBE869294050200080313F = {
@@ -227,9 +243,9 @@
 			isa = PBXGroup;
 			children = (
 				82CBE647294A1B5800F877CE /* App */,
-				82CBE648294A1B5C00F877CE /* Domain */,
-				82CBE649294A1B6100F877CE /* Model */,
 				82CBE64A294A1B6800F877CE /* Repository */,
+				82CBE648294A1B5C00F877CE /* Service */,
+				82CBE649294A1B6100F877CE /* Model */,
 				82CBE64B294A1B6F00F877CE /* Utils */,
 				82CBE64C294A1B7400F877CE /* View */,
 				82CBE64D294A1B7800F877CE /* ViewModel */,
