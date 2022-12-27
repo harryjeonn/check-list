@@ -12,14 +12,32 @@ import RxCocoa
 
 class InputCheckListViewController: UIViewController {
     var disposeBag = DisposeBag()
+    let viewModel = InputCheckListViewModel()
+    var tapEnterButton = PublishSubject<String>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         bind()
+        textField.becomeFirstResponder()
     }
     
     private func bind() {
+        let input = InputCheckListViewModel.Input(
+            tapEnterButton: enterButton.rx.tap.map { _ in () },
+            changeTextField: textField.rx.text.orEmpty.map { $0 }
+            )
+        
+        let output = viewModel.transform(input: input)
+        
+        output.checkList
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] checkList in
+                self?.tapEnterButton.onNext(checkList)
+                self?.dismiss(animated: false)
+            })
+            .disposed(by: disposeBag)
+        
         backgroundView.rx.tapGesture()
             .when(.recognized)
             .map { _ in () }
@@ -27,41 +45,6 @@ class InputCheckListViewController: UIViewController {
                 self?.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
-        
-        enterButton.rx.tap
-            .subscribe(onNext: { [weak self] in
-                self?.dismiss(animated: false)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    private func setupLayout() {
-        view.addSubview(backgroundView)
-        backgroundView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-        }
-        
-        view.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.leading.equalTo(12)
-            make.trailing.equalTo(-12)
-            make.height.equalTo(70)
-        }
-        
-        containerView.addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.leading.equalTo(12)
-            make.height.equalTo(50)
-        }
-        
-        containerView.addSubview(enterButton)
-        enterButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(-12)
-        }
     }
     
     // MARK: - View
@@ -94,4 +77,34 @@ class InputCheckListViewController: UIViewController {
         
         return btn
     }()
+    
+    // MARK: - Layout
+    private func setupLayout() {
+        view.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { make in
+            make.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        view.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.leading.equalTo(12)
+            make.trailing.equalTo(-12)
+            make.height.equalTo(70)
+        }
+        
+        containerView.addSubview(textField)
+        textField.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.leading.equalTo(12)
+            make.height.equalTo(50)
+        }
+        
+        containerView.addSubview(enterButton)
+        enterButton.snp.makeConstraints { make in
+            make.width.height.equalTo(24)
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-12)
+        }
+    }
 }

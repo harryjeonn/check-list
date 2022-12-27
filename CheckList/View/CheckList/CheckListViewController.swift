@@ -16,6 +16,8 @@ class CheckListViewController: UIViewController {
     let viewModel: CheckListViewModel
     var disposeBag = DisposeBag()
     
+    let addCheckList = PublishSubject<String>()
+    
     init(viewModel: CheckListViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -34,7 +36,9 @@ class CheckListViewController: UIViewController {
     }
     
     private func bind() {
-        let input = CheckListViewModel.Input()
+        let input = CheckListViewModel.Input(
+            addCheckList: addCheckList.asObservable()
+        )
         
         let output = viewModel.transform(input: input)
         
@@ -47,7 +51,7 @@ class CheckListViewController: UIViewController {
             }).disposed(by: disposeBag)
         
         // TableView
-        viewModel.checkListItems
+        output.checkListItems
             .bind(to: tableView.rx.items(cellIdentifier: CheckListTableViewCell.identifier, cellType: CheckListTableViewCell.self)) { index, item, cell in
                 cell.titleLabel.text = item
                 cell.selectionStyle = .none
@@ -75,6 +79,9 @@ class CheckListViewController: UIViewController {
     private func showInputCheckListView() {
         let alert = InputCheckListViewController()
         alert.modalPresentationStyle = .overCurrentContext
+        alert.tapEnterButton
+            .subscribe(onNext: addCheckList.onNext)
+            .disposed(by: disposeBag)
         self.present(alert, animated: false)
     }
     
