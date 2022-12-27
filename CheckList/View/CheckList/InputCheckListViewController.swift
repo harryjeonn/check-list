@@ -17,6 +17,7 @@ class InputCheckListViewController: UIViewController {
     var currentText = ""
     var addCheckList = PublishSubject<String>()
     var editCheckList = PublishSubject<String>()
+    var removeCheckList = PublishSubject<Void>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,13 @@ class InputCheckListViewController: UIViewController {
             .filter { [weak self] _ in self?.currentText != "" }
             .subscribe(onNext: { [weak self] checkList in
                 self?.editCheckList.onNext(checkList)
+                self?.dismiss(animated: false)
+            })
+            .disposed(by: disposeBag)
+        
+        removeButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.removeCheckList.onNext(())
                 self?.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
@@ -96,6 +104,16 @@ class InputCheckListViewController: UIViewController {
         return btn
     }()
     
+    let removeButton: UIButton = {
+       let btn = UIButton()
+        btn.setImage(UIImage(systemName: "trash"), for: .normal)
+        btn.backgroundColor = .red
+        btn.tintColor = .white
+        btn.layer.cornerRadius = 10
+        
+        return btn
+    }()
+    
     // MARK: - Layout
     private func setupLayout() {
         view.addSubview(backgroundView)
@@ -124,5 +142,13 @@ class InputCheckListViewController: UIViewController {
             make.centerY.equalToSuperview()
             make.trailing.equalTo(-12)
         }
+        
+        backgroundView.addSubview(removeButton)
+        removeButton.snp.makeConstraints { make in
+            make.trailing.equalTo(-12)
+            make.bottom.equalTo(containerView.snp.top).offset(-12)
+            make.width.height.equalTo(50)
+        }
+        removeButton.isHidden = currentText == ""
     }
 }

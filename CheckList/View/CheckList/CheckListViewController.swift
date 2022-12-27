@@ -18,6 +18,7 @@ class CheckListViewController: UIViewController {
     
     let addCheckList = PublishSubject<String>()
     let editCheckList = PublishSubject<(String, Int)>()
+    let removeCheckList = PublishSubject<Int>()
     
     init(viewModel: CheckListViewModel) {
         self.viewModel = viewModel
@@ -39,7 +40,8 @@ class CheckListViewController: UIViewController {
     private func bind() {
         let input = CheckListViewModel.Input(
             addCheckList: addCheckList.asObservable(),
-            editCheckList: editCheckList.asObservable()
+            editCheckList: editCheckList.asObservable(),
+            removeCheckList: removeCheckList.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -97,6 +99,10 @@ class CheckListViewController: UIViewController {
             .subscribe(onNext: { [weak self] str in
                 self?.editCheckList.onNext((str, index!))
             })
+            .disposed(by: disposeBag)
+        
+        alert.removeCheckList
+            .subscribe(onNext: { [weak self] _ in self?.removeCheckList.onNext(index!) })
             .disposed(by: disposeBag)
         
         self.present(alert, animated: false)
