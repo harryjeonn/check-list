@@ -30,6 +30,7 @@
 		82A6256E2940591F009F461E /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 82A6256D2940591F009F461E /* SnapKit */; };
 		82CBE651294A1E1600F877CE /* CheckListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CBE650294A1E1600F877CE /* CheckListViewModel.swift */; };
 		82CBE653294A1F3B00F877CE /* TimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CBE652294A1F3B00F877CE /* TimeView.swift */; };
+		82D6AD20295B16CD00067B82 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D6AD1F295B16CD00067B82 /* String+Extension.swift */; };
 		82EBE876294050200080313F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EBE875294050200080313F /* AppDelegate.swift */; };
 		82EBE878294050200080313F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EBE877294050200080313F /* SceneDelegate.swift */; };
 		82EBE87A294050200080313F /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82EBE879294050200080313F /* CheckListViewController.swift */; };
@@ -73,6 +74,7 @@
 		82684C5F295AD50E009DB842 /* InputCheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCheckListViewModel.swift; sourceTree = "<group>"; };
 		82CBE650294A1E1600F877CE /* CheckListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListViewModel.swift; sourceTree = "<group>"; };
 		82CBE652294A1F3B00F877CE /* TimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeView.swift; sourceTree = "<group>"; };
+		82D6AD1F295B16CD00067B82 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		82EBE872294050200080313F /* CheckList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CheckList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82EBE875294050200080313F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		82EBE877294050200080313F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				82591F41294B540F00D3E6D3 /* UIView+Extension.swift */,
+				82D6AD1F295B16CD00067B82 /* String+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				82591F55294E082C00D3E6D3 /* HomeViewController.swift in Sources */,
 				82EBE876294050200080313F /* AppDelegate.swift in Sources */,
 				82591F44294DA0F900D3E6D3 /* EditDateViewModel.swift in Sources */,
+				82D6AD20295B16CD00067B82 /* String+Extension.swift in Sources */,
 				82CBE653294A1F3B00F877CE /* TimeView.swift in Sources */,
 				82EBE878294050200080313F /* SceneDelegate.swift in Sources */,
 				82591F48294DBB2E00D3E6D3 /* DayPickerTableViewCell.swift in Sources */,

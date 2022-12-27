@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import RxSwift
 
 class CheckListTableViewCell: UITableViewCell {
     static let identifier = "CheckListTableViewCell"
+    
+    var disposeBag = DisposeBag()
+    let tapCheckBox = PublishSubject<Bool>()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -24,25 +28,25 @@ class CheckListTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
     }
     
-    private func setupLayout() {
-        contentView.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
-//            make.leading.trailing.equalToSuperview()
-            make.leading.equalToSuperview().offset(1)
-            make.trailing.equalToSuperview().offset(-1)
-        }
+    func configure(item: CheckListItem) {
+        self.selectionStyle = .none
         
-        containerView.addSubview(boxImageView)
-        boxImageView.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(containerView).offset(12)
-        }
+        self.boxButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                self?.tapCheckBox.onNext(!item.isDone)
+            })
+            .disposed(by: disposeBag)
         
-        containerView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(boxImageView.snp.trailing).offset(12)
+        if item.isDone {
+            self.titleLabel.attributedText = item.title.strikeThrough()
+            self.titleLabel.textColor = .gray
+            self.boxButton.setImage(UIImage(systemName: "checkmark.square"), for: .normal)
+            self.boxButton.tintColor = .gray
+        } else {
+            self.titleLabel.attributedText = .init(string: item.title)
+            self.titleLabel.textColor = .black
+            self.boxButton.setImage(UIImage(systemName: "square"), for: .normal)
+            self.boxButton.tintColor = .black
         }
     }
     
@@ -61,11 +65,34 @@ class CheckListTableViewCell: UITableViewCell {
         return lbl
     }()
     
-    let boxImageView: UIImageView = {
-       let img = UIImageView()
-        img.image = UIImage(systemName: "square")
-        img.tintColor = .black
+    let boxButton: UIButton = {
+       let btn = UIButton()
+        btn.setImage(UIImage(systemName: "square"), for: .normal)
+        btn.tintColor = .black
         
-        return img
+        return btn
     }()
+    
+    // MARK: - Layout
+    private func setupLayout() {
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { make in
+            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(1)
+            make.trailing.equalToSuperview().offset(-1)
+        }
+        
+        containerView.addSubview(boxButton)
+        boxButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(containerView)
+            make.width.height.equalTo(containerView.snp.height)
+        }
+        
+        containerView.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(12)
+        }
+    }
 }

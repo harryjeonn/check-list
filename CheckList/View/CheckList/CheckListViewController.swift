@@ -19,6 +19,7 @@ class CheckListViewController: UIViewController {
     let addCheckList = PublishSubject<String>()
     let editCheckList = PublishSubject<(String, Int)>()
     let removeCheckList = PublishSubject<Int>()
+    let tapCheckBox = PublishSubject<(Bool, Int)>()
     
     init(viewModel: CheckListViewModel) {
         self.viewModel = viewModel
@@ -41,7 +42,8 @@ class CheckListViewController: UIViewController {
         let input = CheckListViewModel.Input(
             addCheckList: addCheckList.asObservable(),
             editCheckList: editCheckList.asObservable(),
-            removeCheckList: removeCheckList.asObservable()
+            removeCheckList: removeCheckList.asObservable(),
+            tapCheckBox: tapCheckBox.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -57,8 +59,11 @@ class CheckListViewController: UIViewController {
         // TableView
         output.checkListItems
             .bind(to: tableView.rx.items(cellIdentifier: CheckListTableViewCell.identifier, cellType: CheckListTableViewCell.self)) { index, item, cell in
-                cell.titleLabel.text = item
-                cell.selectionStyle = .none
+                cell.configure(item: item)
+                cell.tapCheckBox
+                    .map { ($0, index) }
+                    .bind(to: self.tapCheckBox)
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         
@@ -71,7 +76,7 @@ class CheckListViewController: UIViewController {
         
         tableView.rx.itemSelected
             .subscribe(onNext: { indexPath in
-                let str = output.checkListItems.value[indexPath.row]
+                let str = output.checkListItems.value[indexPath.row].title
                 self.showInputCheckListView(currentText: str, index: indexPath.row)
             })
             .disposed(by: disposeBag)

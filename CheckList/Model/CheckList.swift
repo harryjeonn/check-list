@@ -8,8 +8,13 @@
 import Foundation
 
 struct CheckList {
-    var checkList: [String]
+    var item: [CheckListItem]
     var alarm: [Alarm]
+}
+
+struct CheckListItem {
+    var title: String
+    var isDone: Bool
 }
 
 struct Alarm {

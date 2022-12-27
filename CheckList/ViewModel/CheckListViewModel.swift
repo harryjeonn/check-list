@@ -16,19 +16,20 @@ class CheckListViewModel: ViewModel {
         let addCheckList: Observable<String>
         let editCheckList: Observable<(String, Int)>
         let removeCheckList: Observable<Int>
+        let tapCheckBox: Observable<(Bool, Int)>
     }
     
     struct Output {
-        let checkListItems: BehaviorRelay<[String]>
+        let checkListItems: BehaviorRelay<[CheckListItem]>
     }
     
     func transform(input: Input) -> Output {
-        let checkListItems = BehaviorRelay<[String]>(value: [])
+        let checkListItems = BehaviorRelay<[CheckListItem]>(value: [])
         
         input.addCheckList
             .subscribe(onNext: { checkList in
                 var items = checkListItems.value
-                items.append(checkList)
+                items.append(CheckListItem(title: checkList, isDone: false))
                 checkListItems.accept(items)
             })
             .disposed(by: disposeBag)
@@ -36,7 +37,7 @@ class CheckListViewModel: ViewModel {
         input.editCheckList
             .subscribe(onNext: { (str, index) in
                 var newCheckListItems = checkListItems.value
-                newCheckListItems[index] = str
+                newCheckListItems[index] = CheckListItem(title: str, isDone: newCheckListItems[index].isDone)
                 checkListItems.accept(newCheckListItems)
             })
             .disposed(by: disposeBag)
@@ -45,6 +46,14 @@ class CheckListViewModel: ViewModel {
             .subscribe(onNext: { index in
                 var newCheckListItems = checkListItems.value
                 newCheckListItems.remove(at: index)
+                checkListItems.accept(newCheckListItems)
+            })
+            .disposed(by: disposeBag)
+        
+        input.tapCheckBox
+            .subscribe(onNext: { (isDone, index) in
+                var newCheckListItems = checkListItems.value
+                newCheckListItems[index] = CheckListItem(title: newCheckListItems[index].title, isDone: isDone)
                 checkListItems.accept(newCheckListItems)
             })
             .disposed(by: disposeBag)
