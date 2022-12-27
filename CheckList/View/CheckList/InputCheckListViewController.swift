@@ -133,14 +133,13 @@ class InputCheckListViewController: UIViewController {
         textField.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.leading.equalTo(12)
-            make.height.equalTo(50)
+            make.height.equalTo(containerView.snp.height)
         }
         
         containerView.addSubview(enterButton)
         enterButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.centerY.equalToSuperview()
-            make.trailing.equalTo(-12)
+            make.width.height.equalTo(containerView.snp.height)
+            make.centerY.trailing.equalToSuperview()
         }
         
         backgroundView.addSubview(removeButton)
