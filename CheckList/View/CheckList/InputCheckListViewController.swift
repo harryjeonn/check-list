@@ -13,13 +13,16 @@ import RxCocoa
 class InputCheckListViewController: UIViewController {
     var disposeBag = DisposeBag()
     let viewModel = InputCheckListViewModel()
-    var tapEnterButton = PublishSubject<String>()
+    
+    var currentText = ""
+    var addCheckList = PublishSubject<String>()
+    var editCheckList = PublishSubject<String>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        configureTextField()
         bind()
-        textField.becomeFirstResponder()
     }
     
     private func bind() {
@@ -32,8 +35,18 @@ class InputCheckListViewController: UIViewController {
         
         output.checkList
             .distinctUntilChanged()
+            .filter { [weak self] _ in self?.currentText == "" }
             .subscribe(onNext: { [weak self] checkList in
-                self?.tapEnterButton.onNext(checkList)
+                self?.addCheckList.onNext(checkList)
+                self?.dismiss(animated: false)
+            })
+            .disposed(by: disposeBag)
+        
+        output.checkList
+            .distinctUntilChanged()
+            .filter { [weak self] _ in self?.currentText != "" }
+            .subscribe(onNext: { [weak self] checkList in
+                self?.editCheckList.onNext(checkList)
                 self?.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
@@ -45,6 +58,12 @@ class InputCheckListViewController: UIViewController {
                 self?.dismiss(animated: false)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func configureTextField() {
+        textField.text = currentText
+        textField.placeholder = currentText == "" ? "항목을 입력해주세요" : currentText
+        textField.becomeFirstResponder()
     }
     
     // MARK: - View
@@ -65,7 +84,6 @@ class InputCheckListViewController: UIViewController {
     
     let textField: UITextField = {
        let textField = UITextField()
-        textField.placeholder = "항목을 입력해주세요."
         
         return textField
     }()

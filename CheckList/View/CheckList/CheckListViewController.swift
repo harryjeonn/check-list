@@ -17,6 +17,7 @@ class CheckListViewController: UIViewController {
     var disposeBag = DisposeBag()
     
     let addCheckList = PublishSubject<String>()
+    let editCheckList = PublishSubject<(String, Int)>()
     
     init(viewModel: CheckListViewModel) {
         self.viewModel = viewModel
@@ -37,7 +38,8 @@ class CheckListViewController: UIViewController {
     
     private func bind() {
         let input = CheckListViewModel.Input(
-            addCheckList: addCheckList.asObservable()
+            addCheckList: addCheckList.asObservable(),
+            editCheckList: editCheckList.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -61,7 +63,14 @@ class CheckListViewController: UIViewController {
         // 체크리스트 추가 버튼
         addCheckListButton.rx.tap
             .subscribe(onNext: { [weak self] in
-                self?.showInputCheckListView()
+                self?.showInputCheckListView(currentText: "", index: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        tableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                let str = output.checkListItems.value[indexPath.row]
+                self.showInputCheckListView(currentText: str, index: indexPath.row)
             })
             .disposed(by: disposeBag)
     }
@@ -76,12 +85,20 @@ class CheckListViewController: UIViewController {
         self.present(vc, animated: true)
     }
     
-    private func showInputCheckListView() {
+    private func showInputCheckListView(currentText: String, index: Int?) {
         let alert = InputCheckListViewController()
         alert.modalPresentationStyle = .overCurrentContext
-        alert.tapEnterButton
+        alert.currentText = currentText
+        alert.addCheckList
             .subscribe(onNext: addCheckList.onNext)
             .disposed(by: disposeBag)
+        
+        alert.editCheckList
+            .subscribe(onNext: { [weak self] str in
+                self?.editCheckList.onNext((str, index!))
+            })
+            .disposed(by: disposeBag)
+        
         self.present(alert, animated: false)
     }
     

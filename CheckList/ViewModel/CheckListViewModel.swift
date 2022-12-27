@@ -14,6 +14,7 @@ class CheckListViewModel: ViewModel {
     
     struct Input {
         let addCheckList: Observable<String>
+        let editCheckList: Observable<(String, Int)>
     }
     
     struct Output {
@@ -28,6 +29,14 @@ class CheckListViewModel: ViewModel {
                 var items = checkListItems.value
                 items.append(checkList)
                 checkListItems.accept(items)
+            })
+            .disposed(by: disposeBag)
+        
+        input.editCheckList
+            .subscribe(onNext: { (str, index) in
+                var newCheckListItems = checkListItems.value
+                newCheckListItems[index] = str
+                checkListItems.accept(newCheckListItems)
             })
             .disposed(by: disposeBag)
         
